@@ -10,6 +10,7 @@ Designed to be used online and then printed out in landscape mode.
 * [ ] refactor StripType to be, like... Drug. Or something
   * [ ] have a 'name' field
   * [ ] have a 'viz-shape' to be oval vs. rectangular
+* [ ] mobile usability? I have a bunch of hovers, for example.
 
 ## Developing
 

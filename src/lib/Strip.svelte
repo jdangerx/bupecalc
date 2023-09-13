@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { STRIP_TYPES } from '$lib/StripType';
 	export let shape: [number, number];
 	export let stripProportion: number;
 	export let drug: string;
@@ -22,13 +23,22 @@
 		}
 		rows = rows;
 	}
+
+	$: rgba = `rgba(${STRIP_TYPES[drug].rgba.join(',')})`;
 </script>
 
-<div class="svg-container {drug.toLowerCase().replaceAll(' ', '-')}">
+<div class="svg-container">
 	<svg viewBox="-1 -1 {shape[1] * g + 2} {shape[0] * g + 2}">
 		{#each rows as row, i}
 			{#each row as cell, j}
-				<rect x={j * g} y={i * g} width={g} height={g} class={cell ? 'used' : 'unused'} />
+				<rect
+					x={j * g}
+					y={i * g}
+					width={g}
+					height={g}
+					class={cell ? 'used' : 'unused'}
+					style={cell ? `fill:${rgba}` : ''}
+				/>
 				{#if j > 0}
 					<line class="sep" x1={j * g} y1={i * g} x2={j * g} y2={(i + 1) * g} />
 				{/if}
@@ -44,22 +54,6 @@
 <style>
 	rect.unused {
 		fill: white;
-	}
-
-	div.suboxone-2mg rect.used {
-		fill: rgba(194, 122, 40, 0.4);
-	}
-
-	div.suboxone-4mg rect.used {
-		fill: rgba(194, 122, 40, 0.6);
-	}
-
-	div.suboxone-8mg rect.used {
-		fill: rgba(194, 122, 40, 0.8);
-	}
-
-	div.subutex-2mg rect.used {
-		fill: rgba(200, 200, 200, 1);
 	}
 
 	rect.full-strip {

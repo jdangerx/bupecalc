@@ -6,6 +6,8 @@ Designed to be used online and then printed out in landscape mode.
 
 ## TODO
 
+* [ ] define dose labels that can be changed, between the choices 'morning', 'afternoon', 'evening', 'daily' - so the last daily dose can be 'morning' while the first one is 'daily'.
+* [ ] user instruction modal / details tab?
 * [ ] add multiple preset regimens to choose between
 * [ ] refactor StripType to be, like... Drug. Or something
   * [ ] have a 'name' field

@@ -4,16 +4,20 @@
 	import { STRIP_TYPES } from '$lib/StripType';
 
 	let days = [
-		{ dose: 0.5, freq: 2, drug: 'belbuca', stopOtherOpioids: false },
-		{ dose: 1, freq: 3, drug: 'suboxone 2mg', stopOtherOpioids: false },
-		{ dose: 2, freq: 2, drug: 'suboxone 4mg', stopOtherOpioids: false }
+		{ dose: 0.5, freq: 1, drug: 'suboxone 2mg', stopOtherOpioids: false },
+		{ dose: 0.5, freq: 2, drug: 'suboxone 2mg', stopOtherOpioids: false },
+		{ dose: 1, freq: 2, drug: 'suboxone 2mg', stopOtherOpioids: false },
+		{ dose: 2, freq: 2, drug: 'suboxone 2mg', stopOtherOpioids: false },
+		{ dose: 3, freq: 2, drug: 'suboxone 2mg', stopOtherOpioids: false },
+		{ dose: 4, freq: 2, drug: 'suboxone 8mg', stopOtherOpioids: true },
+		{ dose: 8, freq: 1, drug: 'suboxone 8mg', stopOtherOpioids: true }
 	];
 
 	let startDate = new Date();
 
 	function addDay() {
 		if (days.length === 0) {
-			days = [{ dose: 0.5, freq: 2, drug: 'belbuca', stopOtherOpioids: false }];
+			days = [{ dose: 0.5, freq: 2, drug: 'suboxone 2mg', stopOtherOpioids: false }];
 			return;
 		}
 		let lastDay = days[days.length - 1];
@@ -37,13 +41,7 @@
 		console.log(days);
 	}
 
-	$: totalDoses = days.reduce(
-		(acc: { [id: string]: number }, cur) => {
-			acc[STRIP_TYPES[cur.drug].drugType] += cur.dose * cur.freq;
-			return acc;
-		},
-		{ belbuca: 0, suboxone: 0 }
-	);
+	$: lastDay = days[days.length - 1];
 
 	$: totalDosageByType = days.reduce((acc: { [id: string]: number }, cur) => {
 		acc[cur.drug] += cur.dose * cur.freq;
@@ -61,39 +59,31 @@
 </script>
 
 <div class="content">
-	<h1>BupeCalc</h1>
+	<h2>BupeCalc</h2>
 	<div class="start-date no-print">
 		Start date:<input class="start-date" type="date" bind:value={startDate} />
 	</div>
-	<div class="overview">
-		<h3>Overview</h3>
-		<div class="instructions">
-			<ul>
-				<li>
-					Main goal is to ease you into buprenorphine treatment slowly while also trying to prevent
-					precipitated withdrawal.
-				</li>
-				<li>Continue use of full agonist opioids (oxycodone, heroin, fentanyl, etc.)</li>
-				<li>This method should cause minimal withdrawal symptoms.</li>
-				<li>
-					Call your PCP if you have questions or concerns, or are experiencing symptoms of
-					withdrawal.
-				</li>
-				<li>
-					Over the course of treatment, you will use
-					{Object.entries(totalDoses)
-						.filter(([_drug, dose]) => dose > 0)
-						.map(([drug, dose]) => `${dose} mg of ${drug}`)
-						.join(' and ')}.
-				</li>
-				<li>
-					Total strips used: {totalStripsByStripType
-						.map(([stripType, count]) => `${count}x ${stripType}`)
-						.join(', ')}
-				</li>
-			</ul>
-		</div>
-		<p />
+	<div class="instructions">
+		<ul>
+			<li>
+				Main goal is to ease you into buprenorphine treatment slowly while also trying to prevent
+				precipitated withdrawal.
+			</li>
+			<li>Continue use of full agonist opioids (oxycodone, heroin, fentanyl, etc.)</li>
+			<li>This method should cause minimal withdrawal symptoms.</li>
+			<li>
+				Call your PCP if you have questions or concerns, or are experiencing symptoms of withdrawal.
+			</li>
+			<li>
+				By the last day you will use {lastDay.dose * lastDay.freq} mg of {STRIP_TYPES[lastDay.drug]
+					.drugType}.
+			</li>
+			<li>
+				Total strips used: {totalStripsByStripType
+					.map(([stripType, count]) => `${count}x ${stripType}`)
+					.join(', ')}
+			</li>
+		</ul>
 	</div>
 	<div class="days">
 		{#each days as day, i}

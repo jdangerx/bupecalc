@@ -29,9 +29,9 @@
 </script>
 
 <div class="day">
-	<h3>
+	<h4>
 		Day {day + 1} ({date.toLocaleDateString()})
-	</h3>
+	</h4>
 	<div class="no-print">
 		<button class="remove-self" on:click={removeSelf}>✕</button>
 	</div>

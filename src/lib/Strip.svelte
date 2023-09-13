@@ -46,10 +46,6 @@
 		fill: white;
 	}
 
-	div.belbuca rect.used {
-		fill: rgb(227, 210, 110);
-	}
-
 	div.suboxone-2mg rect.used {
 		fill: rgba(194, 122, 40, 0.4);
 	}

@@ -15,7 +15,6 @@ class StripType {
 }
 
 export const STRIP_TYPES: { [id: string]: StripType } = {
-	belbuca: new StripType('belbuca', 0.25, [2, 2]),
 	'suboxone 2mg': new StripType('suboxone', 2, [2, 4]),
 	'suboxone 4mg': new StripType('suboxone', 4, [2, 4]),
 	'suboxone 8mg': new StripType('suboxone', 8, [2, 4]),

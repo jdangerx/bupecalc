@@ -12,8 +12,6 @@
 
 	$: date = new Date(new Date(startDate).setDate(new Date(startDate).getUTCDate() + day));
 
-	console.log(STRIP_TYPES);
-
 	const drugChoices = Object.keys(STRIP_TYPES);
 
 	$: totalDose = dose * freq;

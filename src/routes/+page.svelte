@@ -38,7 +38,6 @@
 			}
 			return { dose: d.dose, freq: d.freq, drug: d.drug, stopOtherOpioids: false };
 		});
-		console.log(days);
 	}
 
 	$: lastDay = days[days.length - 1];

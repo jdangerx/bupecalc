@@ -5,25 +5,42 @@
 	export let freq: number;
 	export let drug: string;
 
-	const freqLabels = [['daily'], ['morning', 'evening'], ['morning', 'afternoon', 'evening']];
+	function labelDose(totalDoses: number, index: number) {
+		const freqLabels = {
+			1: ['daily'],
+			2: ['morning', 'evening'],
+			3: ['morning', 'afternoon', 'evening'],
+			4: ['early morning', 'late morning', 'afternoon', 'evening']
+		};
+		if (!freqLabels.hasOwnProperty(totalDoses)) {
+			return `dose ${index + 1}`;
+		}
+
+		const labels = freqLabels[totalDoses];
+		if (index >= 0 && index < totalDoses) {
+			return labels[index];
+		}
+	}
 </script>
 
 <div class="strips">
-	{#each Array(freq) as _, i}
-		<table class="daily-dose">
-			<tr>
-				<td class="dose-label">
-					{freqLabels[freq - 1][i]}
-				</td>
-				<td class="strip-viz-container">
-					{#each strips as strip}
-						<Strip bind:shape={strip.shape} bind:stripProportion={strip.stripProportion} {drug} />
-					{/each}
-				</td>
-			</tr>
-		</table>
-		{#if i < freq - 1}<hr />{/if}
-	{/each}
+	{#if freq !== null}
+		{#each Array(freq) as _, i}
+			<table class="daily-dose">
+				<tr>
+					<td class="dose-label">
+						{labelDose(freq, i)}
+					</td>
+					<td class="strip-viz-container">
+						{#each strips as strip}
+							<Strip bind:shape={strip.shape} bind:stripProportion={strip.stripProportion} {drug} />
+						{/each}
+					</td>
+				</tr>
+			</table>
+			{#if i < freq - 1}<hr />{/if}
+		{/each}
+	{/if}
 </div>
 
 <style>

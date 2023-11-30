@@ -52,7 +52,7 @@
 		{numStrips == 1 ? STRIP_TYPES[drug].formSingle : STRIP_TYPES[drug].formPlural})
 	</div>
 	<div class="frequency">
-		<input class="frequency" type="number" bind:value={freq} min="1" max="3" /> x/day
+		<input class="frequency" type="number" bind:value={freq} min="1" max="4" /> x/day
 		<br />(total dose {totalDose} mg)
 	</div>
 	<Strips {strips} {freq} {drug} />

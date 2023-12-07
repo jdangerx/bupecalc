@@ -24,7 +24,7 @@
 </script>
 
 <div class="strips">
-	{#if freq !== null}
+	{#if freq !== null && freq >= 0}
 		{#each Array(freq) as _, i}
 			<table class="daily-dose">
 				<tr>
